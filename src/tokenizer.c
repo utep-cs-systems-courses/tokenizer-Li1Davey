@@ -62,10 +62,13 @@ char *copy_str(char *inStr, short len){
     printf("Length is larger then the String size.\n");
     return NULL;
   }
-  while(i < len){
-    copy[i] = inStr[i];
-    i++;
+  else if(copy != NULL){
+    while(i < len){
+      copy[i] = inStr[i];
+      i++;
+    }
+    copy[i] = '\0';
+    return copy;
   }
-  copy[i] = '\0';
-  return copy;
+  return NULL;
 }
