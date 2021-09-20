@@ -49,7 +49,6 @@ int count_words(char *str){
     else if (!word){
       word = 1;
       ++count;
-      printf("%s,\n", str);
     }
     ++str;
   }
@@ -74,3 +73,6 @@ char *copy_str(char *inStr, short len){
   return NULL;
 }
 
+char **tokenize(char* str){
+  return NULL;
+}
