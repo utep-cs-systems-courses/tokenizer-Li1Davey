@@ -3,14 +3,14 @@
 #include "tokenizer.h"
 
 int space_char(char c){
-  if(c == '\t' || c == ' '){
+  if(c == '\t' || c == ' ' || c == '\n'){
     return 1;
   }
   return 0;
 }
 
 int non_space_char(char c){
-  if(c == '\t' || c == ' '){
+  if(c == '\t' || c == ' ' || c == '\n'){
     return 0;
   }
   return 1;
@@ -46,9 +46,10 @@ int count_words(char *str){
     if (space_char(*str)){
       word = 0;
     }
-    else if (word == 0){
+    else if (!word){
       word = 1;
       ++count;
+      printf("%s,\n", str);
     }
     ++str;
   }
@@ -73,6 +74,3 @@ char *copy_str(char *inStr, short len){
   return NULL;
 }
 
-char **tokenize(char *s){
-  return NULL;
-}
