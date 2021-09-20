@@ -57,7 +57,7 @@ int count_words(char *str){
 
 char *copy_str(char *inStr, short len){
   int i;
-  char *copy = malloc((len+1) *sizeof(char));
+  char *copy = (char*) malloc((len+1) *sizeof(char));
   if(len > sizeof(inStr)){
     printf("Length is larger then the String size.\n");
     return NULL;
@@ -70,5 +70,9 @@ char *copy_str(char *inStr, short len){
     copy[i] = '\0';
     return copy;
   }
+  return NULL;
+}
+
+char **tokenize(char *s){
   return NULL;
 }
