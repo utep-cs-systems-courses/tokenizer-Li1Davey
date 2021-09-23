@@ -30,13 +30,16 @@ char *word_start(char *str){
 
 char *word_terminator(char *word){
   word = word_start(word);
+  if(!word){
+    return NULL;
+  }
   while(*word){
     if(space_char(*word)){
       return word;
     }
     word++;
   }
-  return NULL;
+  return word;
 }
 
 int count_words(char *str){
@@ -58,21 +61,53 @@ int count_words(char *str){
 char *copy_str(char *inStr, short len){
   int i;
   char *copy = (char*) malloc((len+1) *sizeof(char));
+  if(!copy){
+    return NULL;
+  }
   if(len > sizeof(inStr)){
     printf("Length is larger then the String size.\n");
     return NULL;
   }
-  else if(copy != NULL){
-    while(i < len){
-      copy[i] = inStr[i];
-      i++;
-    }
-    copy[i] = '\0';
-    return copy;
+  while(i < len){
+    copy[i] = inStr[i];
+    i++;
   }
-  return NULL;
+  copy[i] = '\0';
+  return copy;
 }
 
 char **tokenize(char* str){
-  return NULL;
+  int i = 0;
+  int numWords = count_words(str);
+  char **tokens = malloc((numWords + 1) *sizeof(char*));
+  char *start = str;
+  char *end = str;
+  while(i < numWords){
+    //printf("%d\n", i);
+    start = word_start(end);
+    end = word_terminator(start);
+    //printf("%s_%s_%d\n", start, end, (end-start));
+    tokens[i] = copy_str(start, (end - start));
+    //printf("%s\n", tokens[i]);
+    i++;
+  }
+  tokens[i] = NULL;
+  return tokens;
+}
+
+void print_tokens(char **tokens){
+  int i = 0;
+  while(tokens[i]){
+    printf("tokens[%d] = %s\n", i, tokens[i]);
+    i++;
+  } 
+}
+
+void free_tokens(char **tokens){
+  int i = 0;
+  while(tokens[i]){
+    free(tokens[i]);
+    i++;
+  }
+  free(tokens[i]);
 }
