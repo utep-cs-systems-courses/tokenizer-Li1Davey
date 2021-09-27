@@ -18,10 +18,8 @@ void add_history(List *list, char *str){
   char *copy = copy_str(str, length - 1);
   addition->str = copy;
 
-  
   if(list->root == NULL){
-    printf("Here\n");
-    addition->id = idHis;
+    addition->id = 0;
     list->root = addition;
   }
   else{
@@ -66,9 +64,9 @@ void free_history(List *list){
   Item *nextItem;
   while(traverse != NULL){
     nextItem = traverse->next;
+    free(traverse->str);
     free(traverse);
     traverse = nextItem;
   }
   free(list);
-  list->root = NULL;
 }
