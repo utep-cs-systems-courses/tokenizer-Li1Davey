@@ -29,24 +29,6 @@ int main()
     count--;
   }
   
-  printf("Would you like to erase history, 'y' or 'n'\n");
-  
-  
-  while(j == 1){
-    fgets(userin, 100, stdin);
-    if(userin[0] == 'n' && userin[1] == '\n'){
-      j = 0;
-    }
-    else if(userin[0] == 'y' && userin[1] == '\n'){
-      free_history(history);
-      printf("history has been cleared\n");
-      j = 0;
-    }
-    else{
-      printf("Incorrect Input, please try again.\n");
-    }
-  }
-
   while(k == 1) {
     int l = 1;
     printf("Type anything on the console for the string to be analyze.\n");
