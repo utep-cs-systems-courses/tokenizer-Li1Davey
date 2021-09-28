@@ -43,7 +43,7 @@ int main()
       k = 0;
     }
     else if(userin[0] == '!' && userin[1] == 'h' && userin[2] == '\n'){
-      printf("***HISTORY***");
+      printf("***HISTORY***\n");
       print_history(history);
       printf("*************");
     }
