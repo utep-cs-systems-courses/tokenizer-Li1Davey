@@ -52,7 +52,6 @@ char *get_history(List *list, int id){
 
 void print_history(List *list){
   Item *traverse = list->root;
-  printf("History\n");
   while(traverse != NULL){ 
     printf("[%d] %s \n", traverse->id, traverse->str);
     traverse = traverse->next;
