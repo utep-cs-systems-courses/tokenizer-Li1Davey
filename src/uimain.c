@@ -6,59 +6,67 @@
 int main()
 {
   int i = 1;
-  int j = 1;
   int k = 1;
-  int count = 0;
   char userin[100];
   List *history = init_history();
- 
-  printf("Type anything on the console to have it printed on the console. type 'q' to escape the loop.\n");
+  printf("-------Simple UI-------\n");
+  printf("Type anything on the console to have it printed on the console. However, there are special commands\n-Type '!q' to escape the loop\n-Type '!h' to view the strings you've entered\n-Type '!#' (# for any id number from 0 to n) to recall a certain history item.\n");
   while(i == 1){
     putchar('$');
     fgets(userin, 100, stdin);
-    add_history(history, userin);
-    printf("%s\n", userin);
-    count++;
-    if(userin[0] == 'q' &&  userin[1] == '\n'){
+    
+    if(userin[0] == '!' && userin[1] == 'q' &&  userin[2] == '\n'){
       i = 0;
     }
-  }
-  printf("History (Backwards)\n");
-  while(count > 0){
-    printf("[%d] %s\n", count - 1, get_history(history, count - 1));
-    count--;
-  }
-  
-  while(k == 1) {
-    int l = 1;
-    printf("Type anything on the console for the string to be analyze.\n");
-    fgets(userin, 100, stdin);
-    add_history(history, userin);
-    printf("Original string is:%s\n", userin);
-    printf("Start of Word is:%s\n", word_start(userin));
-    printf("End of Word after h:%s\n", word_terminator(word_start(userin)));
-    printf("Number of words is: %d\n", count_words(userin));
-    char **tokens = tokenize(userin);
-    print_tokens(tokens);
-    free_tokens(tokens);
-    printf("Tokens freed.\n");
-    printf("Would you like to analyze another string? 'y' or 'n'.\n");
-    while(l == 1){
-      fgets(userin, 100, stdin);
-      if(userin[0] == 'n' && userin[1] == '\n'){
-	l = 0;
-	k = 0;
-      }
-      else if(userin[0] == 'y' && userin[1] == '\n'){
-	l = 0;
-	  }
-      else{
-	printf("Incorrect Input, please try again.\n");
-      }
+    else if(userin[0] == '!' && userin[1] == 'h' && userin[2] == '\n'){
+      printf("***HISTORY***\n");
+      print_history(history);
+      printf("*************\n");
+    }
+    else if(userin[0] == '!'){
+      int index = atoi(userin + 1);
+      printf("***Item***\n[%d] %s\n**********\n", index, get_history(history, index));
+    }
+    else{
+      add_history(history, userin);
+      printf("%s", userin);
     }
   }
+  printf("-------Tokenizer-------\n");
+  
+  while(k == 1) {
+    
+    printf("Type anything on the console for the string to be analyze. However, there are special commands\n-Type '!q' to escape loop\n-Type '!h' to view the strings you've entered\n-Type '!#' (# for any id number from 0 to n) to recall a certain history item\n");
+    fgets(userin, 100, stdin);
 
-  printf("\n");
+    if(userin[0] == '!' && userin[1] == 'q' &&  userin[2] == '\n'){
+      k = 0;
+    }
+    else if(userin[0] == '!' && userin[1] == 'h' && userin[2] == '\n'){
+      printf("***HISTORY***");
+      print_history(history);
+      printf("*************");
+    }
+    else if(userin[0] == '!'){
+      int index = atoi(userin + 1);
+      printf("***Item***\n[%d] %s\n**********\n", index, get_history(history, index));
+    }
+    else{
+      add_history(history, userin);
+      printf("Original string is:%s", userin);
+      printf("Start of Word is:%s", word_start(userin));
+      printf("End of Word after h:%s", word_terminator(word_start(userin)));
+      printf("Number of words is: %d\n", count_words(userin));
+      char **tokens = tokenize(userin);
+      printf("Tokens\n");
+      print_tokens(tokens);
+      printf("-------------\n");
+      free_tokens(tokens);
+      printf("Tokens freed.\n");
+      printf("-------------\n");
+    }
+  }
+  
   print_history(history);
   free_history(history);
   
